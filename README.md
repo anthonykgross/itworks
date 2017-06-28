@@ -7,7 +7,7 @@ Description on going
 - [Ep 02 : La modélisation des données](https://www.youtube.com/watch?v=VNG24gdYZL8)
 
 ## Creator
-**Anthony K GROSS*
+*Anthony K GROSS*
 - <http://anthonykgross.fr>
 - <https://twitter.com/anthonykgross>
 - <https://github.com/anthonykgross>
