@@ -39,10 +39,41 @@ class Youtube
     {
         $client = $this->getClient();
         $youtube = new Google_Service_YouTube($client);
-        $searchResponse = $youtube->playlistItems->listPlaylistItems('id,snippet', array(
+        $searchResponse = $youtube->playlistItems->listPlaylistItems('id,snippet,contentDetails', array(
             'playlistId' => $playlistId,
             'maxResults' => $maxResult,
         ));
         return $searchResponse['items'];
+    }
+
+    /**
+     * @param $channelId
+     * @param $maxResult
+     * @return Google_Service_YouTube_PlaylistItemListResponse
+     */
+    public function getVideosFromChannel($channelId, $maxResult)
+    {
+        $client = $this->getClient();
+        $youtube = new Google_Service_YouTube($client);
+        $searchResponse = $youtube->search->listSearch('id,snippet', array(
+            'channelId' => $channelId,
+            'maxResults' => $maxResult,
+            'type' => 'video'
+        ));
+        return $searchResponse['items'];
+    }
+
+    /**
+     * @param $videoID
+     * @return mixed
+     */
+    public function getVideo($videoID)
+    {
+        $client = $this->getClient();
+        $youtube = new Google_Service_YouTube($client);
+        $searchResponse = $youtube->videos->listVideos('id,snippet,contentDetails', array(
+            'id' => $videoID
+        ));
+        return $searchResponse['items'][0];
     }
 }
