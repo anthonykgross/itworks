@@ -14,6 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Video
 {
+    const STATUS_DONE = 0;
+    const STATUS_PROCESSING = 1;
+    const STATUS_WRITING = 2;
+
     /**
      * @var int
      *
@@ -61,7 +65,7 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="captions", type="text")
+     * @ORM\Column(name="captions", type="text", nullable=true)
      */
     private $captions;
 
@@ -89,7 +93,7 @@ class Video
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="deleted_at", type="datetime")
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
 
@@ -359,6 +363,9 @@ class Video
     {
         $this->userWatchedVideos = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        $this->status = self::STATUS_WRITING;
     }
 
     /**
