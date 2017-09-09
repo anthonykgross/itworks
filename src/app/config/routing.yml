@@ -1,3 +1,7 @@
+app_video:
+    resource: "@AppBundle/Controller/VideoController.php"
+    type:     annotation
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 

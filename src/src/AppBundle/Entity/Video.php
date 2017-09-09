@@ -28,9 +28,9 @@ class Video
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="youtube_id", type="integer")
+     * @ORM\Column(name="youtube_id", type="text")
      */
     private $youtubeId;
 
@@ -58,7 +58,7 @@ class Video
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="published_at", type="datetime")
+     * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
     private $publishedAt;
 
@@ -120,7 +120,7 @@ class Video
     /**
      * Set youtubeId
      *
-     * @param integer $youtubeId
+     * @param string $youtubeId
      *
      * @return Video
      */
@@ -134,7 +134,7 @@ class Video
     /**
      * Get youtubeId
      *
-     * @return int
+     * @return string
      */
     public function getYoutubeId()
     {

@@ -6,6 +6,7 @@ Description on going
 - [Ep 01 : Spécifications du client et analyse des besoins](https://www.youtube.com/watch?v=pD5ugHBLzPA)
 - [Ep 02 : La modélisation des données](https://www.youtube.com/watch?v=VNG24gdYZL8)
 - [Ep 03 : Bundles et entités](https://www.youtube.com/watch?v=DiAzeqHMZrg)
+- [Ep 04 : Dependency injection](https://www.youtube.com/watch?v=U2-71RdoE_U)
 
 ## Creator
 **Anthony K GROSS*
