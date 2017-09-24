@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for v in videos %}
+                {% if not v.title %}
+                    {% if v.publishedAt >= date("now") %}
+                        <div class="col-3">
+                            <div class="card">
+                                <img class="card-img-top" src="https://img.youtube.com/vi/default/hqdefault.jpg" style="width: 100%;">
+                                <div class="card-body" >
+                                    <div class="card-title" > Statut :
+                                        {% if v.status == 2 %}
+                                            &Eacute;criture
+                                        {% endif %}
+                                        {% if v.status == 1 %}
+                                            Montage
+                                        {% endif %}
+                                        {% if v.status == 0 %}
+                                            Pr&ecirc;te
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-text" >Sortira le {{ v.publishedAt|date('d/m/Y H:i') }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="col-3">
+                        <div class="card">
+                            <a href="{{ path('video', {id: v.id}) }}">
+                                <img class="card-img-top" src="https://img.youtube.com/vi/{{ v.youtubeId }}/hqdefault.jpg" style="width: 100%;">
+                            </a>
+                            <div class="card-body" >
+                                <div class="card-title">
+                                    {{ v.title[:50] }}
+                                    {% if v.title|length > 50 %}
+                                        ...
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="col-12 search-result">
+                    Pas de resultat pour <b>{{ search }}</b>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

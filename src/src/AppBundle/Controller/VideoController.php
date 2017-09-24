@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Video controller.
  *
- * @Route("video")
+ * @Route("admin/video")
  */
 class VideoController extends Controller
 {

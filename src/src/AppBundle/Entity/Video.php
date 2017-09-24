@@ -37,21 +37,21 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100)
+     * @ORM\Column(name="title", type="string", length=100, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="duration", type="integer")
+     * @ORM\Column(name="duration", type="integer", nullable=true)
      */
     private $duration;
 

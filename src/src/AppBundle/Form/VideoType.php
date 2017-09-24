@@ -2,9 +2,14 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class VideoType extends AbstractType
 {
@@ -13,16 +18,20 @@ class VideoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('youtubeId')
-            ->add('title')
-            ->add('description')
-            ->add('duration')
-            ->add('publishedAt')
-            ->add('captions')
-            ->add('status')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt')
+        $builder
+            ->add('youtubeId', TextType::class, array(
+                'constraints' => array(
+                    new NotBlank()
+                )
+            ))
+            ->add('status', ChoiceType::class, array(
+                'choices' => array(
+                    'DONE' => Video::STATUS_DONE,
+                    'PROCESSING' => Video::STATUS_PROCESSING,
+                    'WRITING' => Video::STATUS_WRITING,
+                )
+            ))
+            ->add('publishedAt', DateTimeType::class)
         ;
     }
     

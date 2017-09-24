@@ -1,0 +1,13 @@
+body {
+    padding-top: 4.5em;
+}
+
+/* SEARCH */
+.search-result {
+    text-align: center;
+    padding: 5px;
+    padding-top: 20px;
+}
+.card {
+    margin-bottom: 10px;
+}

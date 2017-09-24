@@ -25,4 +25,37 @@ class VideoRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param $search
+     * @return array
+     */
+    public function search($search)
+    {
+        $builder = $this->createQueryBuilder('v');
+
+        if (!is_null($search)) {
+            $builder->where(
+                $builder->expr()->orX(
+                    $builder->expr()->like(
+                        'v.title',
+                        $builder->expr()->literal('%'.$search.'%')
+                    ),
+                    $builder->expr()->like(
+                        'v.description',
+                        $builder->expr()->literal('%'.$search.'%')
+                    ),
+                    $builder->expr()->like(
+                        'v.captions',
+                        $builder->expr()->literal('%'.$search.'%')
+                    )
+                )
+            );
+        }
+        $query = $builder->andWhere($builder->expr()->isNotNull('v.publishedAt'))
+            ->orderBy('v.publishedAt', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

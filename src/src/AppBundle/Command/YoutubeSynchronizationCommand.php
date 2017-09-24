@@ -12,6 +12,7 @@ class YoutubeSynchronizationCommand extends ContainerAwareCommand
     {
         $this
             ->setName('itworks:youtube:sync')
+            ->setDescription('Grab data from Youtube')
         ;
     }
     protected function execute(InputInterface $input, OutputInterface $output)

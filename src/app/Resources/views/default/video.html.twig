@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6" style="text-align: center;">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.youtubeId }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="col-6">
+                    {{ form_errors(form) }}
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Sauvegarder" />
+
+                    {{ form_end(form) }}
+                </div>
+            {% else %}
+                <div class="col-6" style="text-align: center;">
+                    Connecte toi pour prendre des notes sur cette video.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
