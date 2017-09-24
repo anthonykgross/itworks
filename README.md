@@ -1,12 +1,19 @@
 # itworks
 Description on going 
 
+## Requirements
+- PHP 7
+- Yarn 
+- MariaDB /MySQL
+
 ## How to install
 - Define your Youtube API key in `app/config/parameters.dist.yml` as `youtube_api_key`
 - Define your Youtube channel ID to crawl in `app/config/parameters.dist.yml` as `youtube_channel_id`
 - Define your database credentials in `app/config/parameters.dist.yml`
 - Run these following commands
 ```bash
+composer install
+yarn run newinstall
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force
 php bin/console itworks:fixtures
