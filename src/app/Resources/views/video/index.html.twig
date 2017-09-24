@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Videos list</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Thumbnail</th>
+                    <th>Youtubeid</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Publishedat</th>
+                    <th>Status</th>
+                    <th>Deletedat</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for video in videos %}
+                <tr>
+                    <td>{{ video.id }}</td>
+                    <td>
+                        <a href="{{ path('video_show', { 'id': video.id }) }}">
+                            <img src="https://img.youtube.com/vi/{{ video.youtubeId }}/hqdefault.jpg" style="width: 100%;">
+                        </a>
+                    </td>
+                    <td>{{ video.youtubeId }}</td>
+                    <td>{{ video.title }}</td>
+                    <td>{{ video.description[:50] }}</td>
+                    <td>{{ video.duration }}</td>
+                    <td>{{ video.status }}</td>
+                    <td>{% if video.createdAt %}{{ video.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if video.deletedAt %}{{ video.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('video_show', { 'id': video.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('video_edit', { 'id': video.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <ul>
+            <li>
+                <a href="{{ path('video_new') }}">Create a new video</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

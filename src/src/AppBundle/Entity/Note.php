@@ -50,6 +50,14 @@ class Note
     private $user;
 
     /**
+     * Note constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return int

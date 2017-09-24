@@ -57,7 +57,12 @@ class Youtube
             $duration = new \DateInterval($details->getContentDetails()->getDuration());
             $finalDuration = $duration->h*3600+$duration->i*60+$duration->s;
 
-            $v = new Video();
+            $v = $this->em->getRepository(Video::class)->findOneBy(array(
+               'youtubeId' => $id
+            ));
+            if (!$v) {
+                $v = new Video();
+            }
             $v->setTitle($details->getSnippet()->getTitle())
                 ->setDescription($details->getSnippet()->getDescription())
                 ->setYoutubeId($id)
