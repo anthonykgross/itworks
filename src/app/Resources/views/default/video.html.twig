@@ -9,16 +9,22 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div class="col-6">
                     {{ form_errors(form) }}
-
                     {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <input type="submit" value="Sauvegarder" />
+
+                    <label>{{ form_label(form.content, 'Mes notes') }}</label>
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control', 'style' : 'min-height:213px;'}}) }}
+                    <br/>
+                    <p style="text-align: center;">
+                        <input type="submit" class="btn btn-primary" value="Sauvegarder" />
+                    </p>
 
                     {{ form_end(form) }}
                 </div>
             {% else %}
                 <div class="col-6" style="text-align: center;">
-                    Connecte toi pour prendre des notes sur cette video.
+                    <div class="alert alert-warning" role="alert">
+                        Connecte toi pour prendre des notes sur cette video.
+                    </div>
                 </div>
             {% endif %}
         </div>
