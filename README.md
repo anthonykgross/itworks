@@ -3,7 +3,7 @@ Description on going
 
 ## Requirements
 - PHP 7
-- Yarn 
+- Yarn & Composer
 - MariaDB /MySQL
 
 ## How to install

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/images/Dockerfile
+    ports:
+      - 80:80
+
+    depends_on:
+      - db
+    volumes:
+      - ./docker/conf/supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
+      - ./docker/conf/nginx.conf:/etc/nginx/sites-enabled/dopsy.conf
+      - ./docker/logs:/var/www/logs
+      - .:/var/www/html
+
+  db:
+    image: mariadb:10.3.2
+    volumes:
+      - ./docker/data/db:/var/lib
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
