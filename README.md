@@ -27,6 +27,7 @@ php bin/console itworks:youtube:sync
 - [Ep 02 : La modélisation des données](https://www.youtube.com/watch?v=VNG24gdYZL8)
 - [Ep 03 : Bundles et entités](https://www.youtube.com/watch?v=DiAzeqHMZrg)
 - [Ep 04 : Dependency injection](https://www.youtube.com/watch?v=U2-71RdoE_U)
+- [Ep 05 : Responsive design avec Bootstrap](https://www.youtube.com/watch?v=w9mCr5wdEQ4)
 
 ## Creator
 **Anthony K GROSS**
