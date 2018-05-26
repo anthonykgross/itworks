@@ -27,7 +27,7 @@
                 <ul class="navbar-nav mr-auto">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="{{ path('homepage') }}" id="dropdown01" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">{{ app.user.username }}</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
                                 <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}">Profil</a>

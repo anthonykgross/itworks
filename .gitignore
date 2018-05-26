@@ -19,3 +19,4 @@
 .DS_Store
 docs/*.bak
 web/vendor
+docker/logs
