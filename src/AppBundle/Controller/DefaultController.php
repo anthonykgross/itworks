@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Note;
 use AppBundle\Entity\Video;
 use AppBundle\Form\NoteType;
+use Google_Client;
+use Google_Service_YouTube;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,5 +92,41 @@ class DefaultController extends Controller
                 'form' => $form
             )
         );
+    }
+
+    /**
+    * @Route("/youtube/connect", name="youtube_connect")
+    */
+    public function getYoutubeAccessAction(Request $request)
+    {
+        $client = $this->getGoogleClient();
+        return $this->redirect($client->createAuthUrl());
+    }
+
+    /**
+     * @Route("/youtube/token", name="youtube_get_token")
+     */
+    public function tokenAction(Request $request) {
+        $client = $this->getGoogleClient();
+        $client->fetchAccessTokenWithAuthCode($request->get('code', null));
+
+        dump($client->getAccessToken());
+        dump($client->getRefreshToken());
+        exit;
+    }
+
+
+    private function getGoogleClient(){
+        $clientId = $this->getParameter('youtube_client_id');
+        $clientSecret = $this->getParameter('youtube_client_secret');
+
+        $client = new Google_Client();
+        $client->setClientId($clientId);
+        $client->setClientSecret($clientSecret);
+
+        $client->setScopes('https://www.googleapis.com/auth/youtube.force-ssl');
+        $redirect = 'http://localhost/app_dev.php/youtube/token';
+        $client->setRedirectUri($redirect);
+        return $client;
     }
 }

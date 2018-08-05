@@ -18,6 +18,9 @@ services:
         class: AppBundle\Service\Api\Youtube
         arguments:
           - '%youtube_api_key%'
+          - '%youtube_client_id%'
+          - '%youtube_client_secret%'
+          - '%youtube_access_token%'
           - '%youtube_channel_id%'
           - '@doctrine.orm.entity_manager'
 

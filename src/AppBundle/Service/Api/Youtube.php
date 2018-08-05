@@ -4,6 +4,8 @@ namespace AppBundle\Service\Api;
 use AppBundle\Entity\Video;
 use AppBundle\Vendor\Api\Youtube as V_Youtube;
 use Doctrine\ORM\EntityManager;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
 
 class Youtube
 {
@@ -25,12 +27,21 @@ class Youtube
     /**
      * Youtube constructor.
      * @param $apiKey
+     * @param $clientId
+     * @param $clientSecret
+     * @param $accessToken
      * @param $channelId
      * @param EntityManager $em
      */
-    public function __construct($apiKey, $channelId, EntityManager $em)
-    {
-        $this->youtube = new V_Youtube($apiKey);
+    public function __construct(
+        $apiKey,
+        $clientId,
+        $clientSecret,
+        $accessToken,
+        $channelId,
+        EntityManager $em
+    ) {
+        $this->youtube = new V_Youtube($apiKey, $clientId, $clientSecret, $accessToken);
         $this->em = $em;
         $this->channelId = $channelId;
     }
@@ -70,6 +81,12 @@ class Youtube
                 ->setDuration($finalDuration)
                 ->setStatus(Video::STATUS_DONE)
             ;
+
+            $captions = $this->youtube->getCaptions($id);
+            foreach($captions as $caption) {
+                $srt = $this->youtube->downloadCaption($caption['id']);
+                $v->setCaptions($srt->getBody()->getContents());
+            }
 
             $this->em->persist($v);
         }

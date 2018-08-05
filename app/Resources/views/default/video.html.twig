@@ -20,6 +20,11 @@
 
                     {{ form_end(form) }}
                 </div>
+            <div class="col-md-12">
+                <pre>
+                    {{ video.captions | raw }}
+                </pre>
+            </div>
             {% else %}
                 <div class="col-6" style="text-align: center;">
                     <div class="alert alert-warning" role="alert">

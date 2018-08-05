@@ -2,8 +2,10 @@
 namespace AppBundle\Vendor\Api;
 
 use Google_Client;
+use Google_Http_Request;
 use Google_Service_YouTube;
 use Google_Service_YouTube_PlaylistItemListResponse;
+use GuzzleHttp\Psr7\Response;
 
 class Youtube
 {
@@ -13,13 +15,46 @@ class Youtube
     private $apiKey;
 
     /**
+     * @var string
+     */
+    private $clientId;
+
+    /**
+     * @var string
+     */
+    private $clientSecret;
+
+    /**
+     * @var string
+     */
+    private $accessToken;
+
+    /**
      * YoutubeAPI constructor.
      * @param $apiKey
+     * @param $clientId
+     * @param $clientSecret
+     * @param $accessToken
      */
-    public function __construct($apiKey)
+    public function __construct($apiKey, $clientId, $clientSecret, $accessToken)
     {
         $this->apiKey = $apiKey;
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->accessToken = $accessToken;
     }
+
+    private function getOAuthClient(){
+        $client = new Google_Client();
+        $client->setClientId($this->clientId);
+        $client->setClientSecret($this->clientSecret);
+        $client->setAccessToken($this->accessToken);
+        $client->setScopes('https://www.googleapis.com/auth/youtube.force-ssl');
+        $redirect = 'http://localhost/app_dev.php/youtube/token';
+        $client->setRedirectUri($redirect);
+        return $client;
+    }
+
     /**
      * @return Google_Client
      */
@@ -70,10 +105,37 @@ class Youtube
     public function getVideo($videoID)
     {
         $client = $this->getClient();
+
         $youtube = new Google_Service_YouTube($client);
         $searchResponse = $youtube->videos->listVideos('id,snippet,contentDetails', array(
             'id' => $videoID
         ));
         return $searchResponse['items'][0];
+    }
+
+    function getCaptions($videoId) {
+        $client = $this->getOAuthClient();
+
+        $youtube = new Google_Service_YouTube($client);
+        // Call the YouTube Data API's captions.list method to retrieve video caption tracks.
+        $captions = $youtube->captions->listCaptions("snippet", $videoId);
+        return $captions;
+    }
+
+    /**
+     * @param $captionId
+     * @return Response
+     */
+    function downloadCaption($captionId)
+    {
+        $client = $this->getOAuthClient();
+
+        $youtube = new Google_Service_YouTube($client);
+
+        $captions = $youtube->captions->download($captionId, array(
+            'tfmt' => "srt",
+            'alt' => 'media'
+        ));
+        return $captions;
     }
 }
