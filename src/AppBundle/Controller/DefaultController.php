@@ -3,8 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Note;
+use AppBundle\Entity\OAuthToken;
 use AppBundle\Entity\Video;
 use AppBundle\Form\NoteType;
+use AppBundle\Service\Api\Youtube;
+use DateInterval;
+use DateTime;
 use Google_Client;
 use Google_Service_YouTube;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -95,8 +99,10 @@ class DefaultController extends Controller
     }
 
     /**
-    * @Route("/youtube/connect", name="youtube_connect")
-    */
+     * @Route("/youtube/connect", name="youtube_connect")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function getYoutubeAccessAction(Request $request)
     {
         $client = $this->getGoogleClient();
@@ -105,28 +111,39 @@ class DefaultController extends Controller
 
     /**
      * @Route("/youtube/token", name="youtube_get_token")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function tokenAction(Request $request) {
         $client = $this->getGoogleClient();
         $client->fetchAccessTokenWithAuthCode($request->get('code', null));
+        $token = $client->getAccessToken();
 
-        dump($client->getAccessToken());
-        dump($client->getRefreshToken());
-        exit;
+        try {
+            $oauthToken = new OAuthToken();
+
+            $oauthToken->setAccessToken($token['access_token'])
+                ->setRefreshToken($token['refresh_token'])
+                ->setExpiredAt(new DateTime())
+                ->setCreatedAt(new DateTime());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($oauthToken);
+            $em->flush();
+        } catch(\Exception $e) {
+            ;
+        }
+
+
+        return $this->redirectToRoute("homepage");
     }
 
 
     private function getGoogleClient(){
-        $clientId = $this->getParameter('youtube_client_id');
-        $clientSecret = $this->getParameter('youtube_client_secret');
-
-        $client = new Google_Client();
-        $client->setClientId($clientId);
-        $client->setClientSecret($clientSecret);
-
-        $client->setScopes('https://www.googleapis.com/auth/youtube.force-ssl');
-        $redirect = 'http://localhost/app_dev.php/youtube/token';
-        $client->setRedirectUri($redirect);
-        return $client;
+        /**
+         * @var Youtube $service
+         */
+        $service = $this->get('api.youtube');
+        return $service->getInstance()->getOAuthClient();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Vendor\Api;
 
+use AppBundle\Repository\OAuthTokenRepository;
 use Google_Client;
 use Google_Http_Request;
 use Google_Service_YouTube;
@@ -25,31 +26,44 @@ class Youtube
     private $clientSecret;
 
     /**
-     * @var string
+     * @var OAuthTokenRepository
      */
-    private $accessToken;
+    private $oauthTokenRepository;
 
     /**
      * YoutubeAPI constructor.
      * @param $apiKey
      * @param $clientId
      * @param $clientSecret
-     * @param $accessToken
+     * @param OAuthTokenRepository $oauthTokenRepository
      */
-    public function __construct($apiKey, $clientId, $clientSecret, $accessToken)
+    public function __construct($apiKey, $clientId, $clientSecret, OAuthTokenRepository $oauthTokenRepository)
     {
         $this->apiKey = $apiKey;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->accessToken = $accessToken;
+        $this->oauthTokenRepository = $oauthTokenRepository;
     }
 
-    private function getOAuthClient(){
+    public function getOAuthClient(){
+        $token = $this->oauthTokenRepository->getLastToken();
+
+
         $client = new Google_Client();
         $client->setClientId($this->clientId);
         $client->setClientSecret($this->clientSecret);
-        $client->setAccessToken($this->accessToken);
         $client->setScopes('https://www.googleapis.com/auth/youtube.force-ssl');
+
+        if ($token) {
+            $client->setAccessToken($token->getAccessToken());
+        }
+
+        $client->setAccessType("offline");
+
+//        if($client->isAccessTokenExpired()) {
+//            $client->refreshToken($token->getRefreshToken());
+//        }
+
         $redirect = 'http://localhost/app_dev.php/youtube/token';
         $client->setRedirectUri($redirect);
         return $client;

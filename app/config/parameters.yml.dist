@@ -23,4 +23,3 @@ parameters:
     youtube_channel_id: UC7hF0LUlIoShX2QZejF7z7g
     youtube_client_id: ~
     youtube_client_secret: ~
-    youtube_access_token: ~

@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\Service\Api;
 
+use AppBundle\Entity\OAuthToken;
 use AppBundle\Entity\Video;
+use AppBundle\Repository\OAuthTokenRepository;
 use AppBundle\Vendor\Api\Youtube as V_Youtube;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Psr7\Response;
@@ -29,7 +31,7 @@ class Youtube
      * @param $apiKey
      * @param $clientId
      * @param $clientSecret
-     * @param $accessToken
+     * @param OAuthTokenRepository $oauthTokenRepository
      * @param $channelId
      * @param EntityManager $em
      */
@@ -37,11 +39,10 @@ class Youtube
         $apiKey,
         $clientId,
         $clientSecret,
-        $accessToken,
         $channelId,
         EntityManager $em
     ) {
-        $this->youtube = new V_Youtube($apiKey, $clientId, $clientSecret, $accessToken);
+        $this->youtube = new V_Youtube($apiKey, $clientId, $clientSecret, $em->getRepository(OAuthToken::class));
         $this->em = $em;
         $this->channelId = $channelId;
     }
