@@ -18,3 +18,8 @@ body {
     background-color: #232525;
 }
 
+
+.final-captions div:hover {
+    cursor: pointer;
+    background-color: #eeeeee;
+}

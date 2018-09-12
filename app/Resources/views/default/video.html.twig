@@ -20,11 +20,6 @@
 
                     {{ form_end(form) }}
                 </div>
-            <div class="col-md-12">
-                <pre>
-                    {{ video.captions | raw }}
-                </pre>
-            </div>
             {% else %}
                 <div class="col-6" style="text-align: center;">
                     <div class="alert alert-warning" role="alert">
@@ -32,6 +27,15 @@
                     </div>
                 </div>
             {% endif %}
+            <div class="col-md-12">
+                <pre id="raw-captions">
+                    {{ video.captions | raw }}
+                </pre>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/caption.js') }}"></script>
 {% endblock %}
