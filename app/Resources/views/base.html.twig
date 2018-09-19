@@ -10,6 +10,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
@@ -56,15 +57,17 @@
             <hr>
             <footer>
                 <p>
-                    <a href="http://anthonykgross.fr">&copy; AnthonyKGROSS 2017</a>
+                    <a href="http://anthonykgross.fr">&copy; AnthonyKGROSS {{ 'now'|date('Y') }}</a>
                 </p>
             </footer>
         </div>
 
+        <script src="https://www.youtube.com/iframe_api"></script>
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{ asset('vendor/jquery/dist/jquery.slim.min.js') }}" crossorigin="anonymous"></script>
+        <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}" crossorigin="anonymous"></script>
         {#<script src="{{ asset('vendor/popper.js/dist/popper.min.js') }}"></script>#}
         <script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
         <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>

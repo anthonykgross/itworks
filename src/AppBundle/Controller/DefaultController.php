@@ -121,9 +121,8 @@ class DefaultController extends Controller
 
         try {
             $oauthToken = new OAuthToken();
-
             $oauthToken->setAccessToken($token['access_token'])
-                ->setRefreshToken($token['refresh_token'])
+                ->setRefreshToken('fake')
                 ->setExpiredAt(new DateTime())
                 ->setCreatedAt(new DateTime());
 
@@ -131,7 +130,8 @@ class DefaultController extends Controller
             $em->persist($oauthToken);
             $em->flush();
         } catch(\Exception $e) {
-            ;
+            dump($e->getMessage());
+            exit;
         }
 
 

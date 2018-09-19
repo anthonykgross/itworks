@@ -21,5 +21,24 @@ body {
 
 .final-captions div:hover {
     cursor: pointer;
-    background-color: #eeeeee;
+    color: #666;
+}
+
+.final-captions div:hover .fa{
+    visibility: visible;
+}
+
+.final-captions {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.final-captions div {
+    padding: 5px;
+}
+
+.final-captions div .fa{
+    visibility: hidden;
+    color: green;
+    margin-right: 5px;
 }

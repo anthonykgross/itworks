@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6" style="text-align: center;">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.youtubeId }}" frameborder="0" allowfullscreen></iframe>
+                <div id="player" data-youtube-id="{{ video.youtubeId }}"></div>
             </div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div class="col-6">
