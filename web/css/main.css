@@ -18,27 +18,31 @@ body {
     background-color: #232525;
 }
 
+.final-captions {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.final-captions div {
+    padding: 5px;
+}
+.final-captions div .fa{
+    visibility: hidden;
+    margin-right: 5px;
+}
 
 .final-captions div:hover {
     cursor: pointer;
     color: #666;
 }
-
 .final-captions div:hover .fa{
     visibility: visible;
+    color:green;
 }
 
-.final-captions {
-    max-height: 400px;
-    overflow-y: scroll;
+.final-captions div.active {
+    color: #666;
 }
-
-.final-captions div {
-    padding: 5px;
-}
-
-.final-captions div .fa{
-    visibility: hidden;
-    color: green;
-    margin-right: 5px;
+.final-captions div.active .fa {
+    visibility: visible;
+    color: red;
 }
