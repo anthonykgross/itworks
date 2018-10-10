@@ -7,19 +7,34 @@ services:
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
-        autowire: false
+        autowire: true
         # automatically registers your services as commands, event subscribers, etc.
-        autoconfigure: false
+        autoconfigure: true
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: true
 
-    api.youtube:
-        class: AppBundle\Service\Api\Youtube
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    AppBundle\:
+        resource: '../../src/AppBundle/*'
+        exclude: '../../src/AppBundle/{Entity,Migrations,Tests,Repository}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    AppBundle\Controller\:
+        resource: '../../src/AppBundle/Controller'
+        tags: ['controller.service_arguments']
+
+    AppBundle\Vendor\Api\Youtube:
         arguments:
           - '%youtube_api_key%'
           - '%youtube_client_id%'
           - '%youtube_client_secret%'
-          - '%youtube_channel_id%'
           - '@doctrine.orm.entity_manager'
 
+    AppBundle\Service\Api\Youtube:
+        arguments:
+        - '%youtube_channel_id%'
+        - '@doctrine.orm.entity_manager'
+        - '@AppBundle\Vendor\Api\Youtube'

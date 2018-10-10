@@ -143,7 +143,7 @@ class DefaultController extends Controller
         /**
          * @var Youtube $service
          */
-        $service = $this->get('api.youtube');
+        $service = $this->get(Youtube::class);
         return $service->getInstance()->getOAuthClient();
     }
 }

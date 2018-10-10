@@ -1,4 +1,0 @@
-services:
-    AppBundle\Service\Api\Youtube:
-        public: true
-        arguments: ['%youtube_api_key%']

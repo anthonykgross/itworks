@@ -12,7 +12,7 @@ use GuzzleHttp\Psr7\Stream;
 class Youtube
 {
     /**
-     * @var V_Youtube
+     * @var Youtube
      */
     private $youtube;
 
@@ -28,27 +28,22 @@ class Youtube
 
     /**
      * Youtube constructor.
-     * @param $apiKey
-     * @param $clientId
-     * @param $clientSecret
-     * @param OAuthTokenRepository $oauthTokenRepository
      * @param $channelId
      * @param EntityManager $em
+     * @param V_Youtube $youtube
      */
     public function __construct(
-        $apiKey,
-        $clientId,
-        $clientSecret,
         $channelId,
-        EntityManager $em
+        EntityManager $em,
+        V_Youtube $youtube
     ) {
-        $this->youtube = new V_Youtube($apiKey, $clientId, $clientSecret, $em->getRepository(OAuthToken::class));
+        $this->youtube = $youtube;
         $this->em = $em;
         $this->channelId = $channelId;
     }
 
     /**
-     * @return V_Youtube
+     * @return Youtube
      */
     public function getInstance()
     {

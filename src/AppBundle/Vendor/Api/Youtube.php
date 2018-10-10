@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\Vendor\Api;
 
+use AppBundle\Entity\OAuthToken;
 use AppBundle\Repository\OAuthTokenRepository;
+use Doctrine\ORM\EntityManager;
 use Google_Client;
 use Google_Http_Request;
 use Google_Service_YouTube;
@@ -35,14 +37,14 @@ class Youtube
      * @param $apiKey
      * @param $clientId
      * @param $clientSecret
-     * @param OAuthTokenRepository $oauthTokenRepository
+     * @param EntityManager $em
      */
-    public function __construct($apiKey, $clientId, $clientSecret, OAuthTokenRepository $oauthTokenRepository)
+    public function __construct($apiKey, $clientId, $clientSecret, EntityManager $em)
     {
         $this->apiKey = $apiKey;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->oauthTokenRepository = $oauthTokenRepository;
+        $this->oauthTokenRepository = $em->getRepository(OAuthToken::class);
     }
 
     public function getOAuthClient(){

@@ -17,6 +17,6 @@ class YoutubeSynchronizationCommand extends ContainerAwareCommand
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getContainer()->get('api.youtube')->synchronization();
+        $this->getContainer()->get('AppBundle\Service\Api\Youtube')->synchronization();
     }
 }
