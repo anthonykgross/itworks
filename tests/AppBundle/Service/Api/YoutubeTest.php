@@ -2,7 +2,6 @@
 namespace AppBundle\Tests\Service\Api;
 
 use AppBundle\Entity\Video;
-use AppBundle\Repository\OAuthTokenRepository;
 use AppBundle\Repository\VideoRepository;
 use AppBundle\Service\Api\Youtube;
 use AppBundle\Vendor\Api\Youtube as V_Youtube;
