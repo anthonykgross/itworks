@@ -8,6 +8,9 @@ ADD docker/images/entrypoint.sh /entrypoint.sh
 
 RUN apt-get update -y && \
 	apt-get install -y nginx supervisor && \
+	npm install -g create-react-app && \
+	curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
+	apt-get install -y nodejs && \
     rm -Rf /src/* && \
 	rm -Rf /var/lib/apt/lists/* && \
 	apt-get autoremove -y --purge && \

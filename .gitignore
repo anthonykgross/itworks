@@ -20,3 +20,4 @@
 docs/*.bak
 web/vendor
 docker/logs
+yarn-error.log
