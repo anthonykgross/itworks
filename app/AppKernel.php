@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Sentry\SentryBundle\SentryBundle(),
             new AppBundle\AppBundle(),
+            new ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

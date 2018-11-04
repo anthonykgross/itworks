@@ -79,3 +79,26 @@ fos_user:
 
 sentry:
     dsn: "%sentry_dns%"
+
+# Nelmio CORS
+nelmio_cors:
+    defaults:
+        allow_origin: ['http://localhost']
+        allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+        allow_headers: ['content-type', 'authorization']
+        expose_headers: ['link']
+        max_age: 3600
+    paths:
+        '^/': ~
+
+api_platform:
+    title: 'It Works'
+    version: '1.0.0'
+    http_cache:
+        invalidation:
+            enabled: false
+            varnish_urls: ['http://']
+        max_age: 0
+        shared_max_age: 3600
+        vary: ['Content-Type', 'Authorization']
+        public: true
