@@ -2,16 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Jumbotron from '../Views/Homepage/Jumbotron';
-import Columns from '../Views/Homepage/Columns';
+import Homepage from '../Views/Homepage/Homepage';
+import SearchResult from '../Views/SearchResult/SearchResult';
 
 class Template extends React.Component {
     render() {
         return (
             <div>
                 <Navbar/>
-                <Jumbotron />
-                <Columns />
+                <SearchResult />
                 <Footer/>
             </div>
         );
