@@ -5,12 +5,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Video;
 use AppBundle\Entity\User;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * Note
  *
  * @ORM\Table(name="note")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\NoteRepository")
+ * @ApiResource
  */
 class Note
 {

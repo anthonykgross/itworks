@@ -5,12 +5,14 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * Video
  *
  * @ORM\Table(name="video")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VideoRepository")
+ * @ApiResource
  */
 class Video
 {

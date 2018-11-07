@@ -83,7 +83,7 @@ sentry:
 # Nelmio CORS
 nelmio_cors:
     defaults:
-        allow_origin: ['http://localhost']
+        allow_origin: ['*']
         allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
         allow_headers: ['content-type', 'authorization']
         expose_headers: ['link']
