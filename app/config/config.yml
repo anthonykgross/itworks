@@ -102,3 +102,15 @@ api_platform:
         shared_max_age: 3600
         vary: ['Content-Type', 'Authorization']
         public: true
+    enable_fos_user: true
+    swagger:
+        api_keys:
+            apiKey:
+                name: Authorization
+                type: header
+
+lexik_jwt_authentication:
+    secret_key:       '%kernel.project_dir%/config/jwt/private.pem'
+    public_key:       '%kernel.project_dir%/config/jwt/public.pem'
+    pass_phrase:      'itworks'
+    token_ttl:        3600
