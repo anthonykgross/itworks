@@ -14,4 +14,4 @@ api:
     type: 'api_platform'
 
 api_login_check:
-    path: /api/login_check
+    path: /login_check
