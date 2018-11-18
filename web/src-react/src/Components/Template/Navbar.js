@@ -30,7 +30,7 @@ class Navbar extends React.Component {
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0" action="" method="GET">
-                        <input className="form-control mr-sm-2" name="q" type="text" placeholder="Recherche"
+                        <input className="form-control mr-sm-2" name="q" type="text" placeholder="Recherche" onChange={this.props.onChange}
                                aria-label="Search" />
                             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
                     </form>
