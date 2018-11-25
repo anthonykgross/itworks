@@ -6,6 +6,7 @@ import Homepage from '../Views/Homepage/Homepage';
 import SearchResult from '../Views/SearchResult/SearchResult';
 import LoginForm from '../Views/Login/LoginForm';
 import Card from "../Views/SearchResult/Card";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
 class Template extends React.Component {
 
@@ -51,11 +52,16 @@ class Template extends React.Component {
 
     render() {
         return (
-            <div>
-                <Navbar onChange={this.handleChange}/>
-                <SearchResult items={this.state.items} />
-                <Footer/>
-            </div>
+            <Router>
+                <div>
+                    <Navbar onChange={this.handleChange}/>
+                    {/*<SearchResult items={this.state.items} />*/}
+                    <Route path="/" exact component={Homepage} />
+                    <Route path="/login" component={LoginForm} />
+                    <Route path="/search" component={SearchResult} />
+                    <Footer/>
+                </div>
+            </Router>
         );
     }
 }
